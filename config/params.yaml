@@ -1,0 +1,5 @@
+id: "raisin_vicon_node"
+network_type: 0 # 0 for TCP, 1 for WEBSOCKET
+network_interface: ["lo"] # for TCP
+peer_id: "railab_raibo" # for TCP
+peer_ip: "192.168.12.1" # for WEBSOCKET
