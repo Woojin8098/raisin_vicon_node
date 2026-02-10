@@ -6,11 +6,11 @@ project(raisin_vicon)
 set(EXEC_NAME ${PROJECT_NAME}_node)
 set(LIB_NAME ${PROJECT_NAME}_publisher)
 
-set(ENV{RAISIN_WS} "../..") ## set the path to your raisin workspace
+set(ENV{RAISIN_WS} ${CMAKE_CURRENT_SOURCE_DIR}/../..) ## set the path to your raisin workspace
 set(CMAKE_PREFIX_PATH $ENV{RAISIN_WS}/install)
 
 ## added your dependencies here
-find_package(raisin_network REQUIRED)
+raisin_find_package(raisin_network REQUIRED)
 
 add_library(${LIB_NAME} SHARED
         src/raisin_vicon_publisher.cpp
@@ -49,5 +49,16 @@ target_include_directories(${LIB_NAME} PRIVATE  $ENV{RAISIN_WS}/install)
 add_executable(${EXEC_NAME} src/main.cpp)
 target_link_libraries(${EXEC_NAME} raisin_network ${LIB_NAME})
 
+set_target_properties(${LIB_NAME} PROPERTIES
+  INSTALL_RPATH "$ENV{RAISIN_WS}/install/lib"
+  BUILD_RPATH   "$ENV{RAISIN_WS}/install/lib"
+)
+
+set_target_properties(${EXEC_NAME} PROPERTIES
+  INSTALL_RPATH "$ENV{RAISIN_WS}/install/lib"
+  BUILD_RPATH   "$ENV{RAISIN_WS}/install/lib"
+)
+
 install(TARGETS ${EXEC_NAME} DESTINATION bin)
 install(TARGETS ${LIB_NAME} DESTINATION lib)
+install(FILES ${VICON_LIBRARIES} DESTINATION lib)

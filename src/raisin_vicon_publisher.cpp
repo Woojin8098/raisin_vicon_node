@@ -23,9 +23,10 @@ ViconPublisher::ViconPublisher(std::shared_ptr<Network> network, std::string hos
   }
 
   while (!client_.IsConnected().Connected) {
-    std::cout << "Connecting Vicon" << std::endl;
+    std::cout << "Connecting Vicon  " << host_address_ <<  std::endl;
     client_.Connect(host_address_);
   }
+  std::cout << "Connected" << std::endl;
 
   client_.EnableSegmentData();
   client_.EnableMarkerData();
@@ -40,7 +41,7 @@ ViconPublisher::ViconPublisher(std::shared_ptr<Network> network, std::string hos
 
   createTimedLoop("vicon_publisher",
     [&](){ viconUpdate(); },
-    1.,
+    300.,
     "main");
 }
 
