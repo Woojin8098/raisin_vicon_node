@@ -80,6 +80,7 @@ void ViconPublisher::viconUpdate()
       pose_.quaternion[2] = quat.Rotation[2];
       pose_.quaternion[3] = quat.Rotation[3];
 
+      std::cout << pose_.position[0] << std::endl;
       publishers_[subject_idx]->publish(pose_);
     }
   }
